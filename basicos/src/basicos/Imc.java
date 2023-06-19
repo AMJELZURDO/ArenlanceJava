@@ -29,11 +29,14 @@ public class Imc {
 		altura = scanner.nextFloat();
 		float resultado = imcCalculo(peso, altura);
 		System.out.println(resultado);
+		String resultado2 = descripcionImc();
+		System.out.println(resultado2);
 
 		scanner.close();
 
 	}
 
+// función cálculo de imc
 	private static float imcCalculo(Float peso, Float altura) {
 
 		float calculoImc = (peso / (altura * altura));
@@ -41,4 +44,23 @@ public class Imc {
 		return calculoImc;
 	}
 
+	/*
+	 * SI IMC < 16 ->> * su imc es DESNUTRIDO SI IMC >= 16 Y < 18 ->> su imc es
+	 * DELGADO SI IMC >= 18 Y < 25 ->> su imc es IDEAL SI IMC >= 25 Y < 31 ->> su
+	 * imc es SOBREPESO SI IMC >= 31 ->> su imc es OBESO ADEMÁS, DE DECIRLE SU IMC
+	 * NUMÉRICO Y NOMINAL,
+	 */
+	public static String descripcionImc(int ) {
+		String notaAlfabetica = null;
+		
+		notaAlfabetica = switch (notaNumerica) {
+		case 1 -> "DELGADO";
+		case 2 -> "IDEAL";
+		case 3 -> "SOBREPESO";
+		case 4 -> "OBESO";
+		default -> "ERROR";
+		};
+
+		return notaAlfabetica;
+	}
 }
