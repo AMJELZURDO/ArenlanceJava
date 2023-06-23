@@ -3,46 +3,10 @@ package restaurantesmalaga.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class Restaurante // implements Comparable<Restaurante>
-{
-
-	@Override
-	public String toString() {
-		return "Restaurante [nombre=" + nombre + ", direccion=" + direccion + ", web=" + web + ", fichaGoogle="
-				+ fichaGoogle + ", latitud=" + latitud + ", longitud=" + longitud + ", barrio=" + barrio
-				+ ", especialidades=" + especialidades + ", getNombre()=" + getNombre() + ", getDireccion()="
-				+ getDireccion() + ", getWeb()=" + getWeb() + ", getFichaGoogle()=" + getFichaGoogle()
-				+ ", getLatitud()=" + getLatitud() + ", getLongitud()=" + getLongitud() + ", getBarrio()=" + getBarrio()
-				+ ", getEspecialidades()=" + getEspecialidades() + ",getPrecioMedio()=" + getPrecioMedio()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		boolean iguales = false;
-
-		if (obj != null) {
-			// conversion de objetos
-			// de modo clasico sería:
-			// if (obj instanceof Restaurante)
-			// Restaurante r = (Restaurante)obj;
-			if (obj instanceof Restaurante r) // Pattern Matching
-			{
-				// son iguales si tienen misma direccion
-				iguales = this.direccion.equals(r.direccion);
-			}
-
-			return iguales;
-
-		}
-		return iguales;
-	}
+public class Restaurante implements Comparable<Restaurante> {
 
 	// id?¿
 	private String nombre;
-
 	private String direccion;
 	private String web;
 	private String fichaGoogle;
@@ -50,10 +14,46 @@ public class Restaurante // implements Comparable<Restaurante>
 	private float longitud;
 	private String barrio;
 	private List<String> especialidades;
-	private float precioMedio;
+	private int precioMedio;
+
+	public Restaurante() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getPrecioMedio() {
+		return precioMedio;
+	}
+
+	public void setPrecioMedio(int precioMedio) {
+		this.precioMedio = precioMedio;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales = false;
+
+		if (obj != null) {
+			// if (obj instanceof Restaurante r)//Pattern Matching J14
+			if (obj instanceof Restaurante) {
+				Restaurante r = (Restaurante) obj;
+				// para mi dos restaurantes son iguales
+				// si tienen la misma direccion
+				iguales = this.direccion.equals(r.direccion);
+			}
+		}
+
+		return iguales;
+	}
+
+	@Override
+	public String toString() {
+		return "Restaurante [nombre=" + nombre + ", direccion=" + direccion + ", web=" + web + ", fichaGoogle="
+				+ fichaGoogle + ", latitud=" + latitud + ", longitud=" + longitud + ", barrio=" + barrio
+				+ ", especialidades=" + especialidades + ", precioMedio=" + precioMedio + "]";
+	}
 
 	public Restaurante(String nombre, String direccion, String web, String fichaGoogle, float latitud, float longitud,
-			String barrio, float precioMedio, String... especialidades) {
+			String barrio, List<String> especialidades, int precioMedio) {
 		super();
 		this.nombre = nombre;
 		this.direccion = direccion;
@@ -62,12 +62,8 @@ public class Restaurante // implements Comparable<Restaurante>
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.barrio = barrio;
-		this.especialidades = Arrays.asList(especialidades);
+		this.especialidades = especialidades;
 		this.precioMedio = precioMedio;
-	}
-
-	public Restaurante() {
-		super();
 	}
 
 	public String getNombre() {
@@ -134,20 +130,21 @@ public class Restaurante // implements Comparable<Restaurante>
 		this.especialidades = especialidades;
 	}
 
-	public float getPrecioMedio() {
-		return precioMedio;
+	// ORDENAR POR PRECIO MEDIO
+	@Override
+	public int compareTo(Restaurante o) {
+		int num = 0;
+			if (this.precioMedio < o.precioMedio) {
+				num = -1;
+			} else if (this.precioMedio > o.precioMedio){
+				num = 1;
+			}
+		return num;
 	}
-
-	public void setPrecioMedio(float linea) {
-		this.precioMedio = linea;
-	}
-
-	/*
-	 * Ordenar por precio Orden natural
-	 * 
-	 * @Override public int compareTo(Restaurante o) { int num=0;
-	 * if(this.precioMedio < o.precioMedio) { num = -1; }else if (this.precioMedio >
-	 * o.precioMedio) { num = 1; } return num; }
-	 */
-
+	
+	/*@Override
+	public int compareTo(Restaurante o) {   //Compara el objeto this y el objeto Restaurante.
+		
+		return (this.getPrecioMedio()-o.getPrecioMedio());
+	}*/
 }
